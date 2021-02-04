@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Alert, Typography } from 'antd';
+import { Card, Alert, Typography, Button } from 'antd';
 import { useIntl, FormattedMessage } from 'umi';
 import styles from './Welcome.less';
+import Model from '../components/Model';
+import Detail from '../components/Detail';
 
 const CodePreview: React.FC = ({ children }) => (
   <pre className={styles.pre}>
@@ -14,6 +16,7 @@ const CodePreview: React.FC = ({ children }) => (
 
 export default (): React.ReactNode => {
   const intl = useIntl();
+  const [visible, setVisible] = useState(false);
   return (
     <PageContainer>
       <Card>
@@ -58,6 +61,10 @@ export default (): React.ReactNode => {
         </Typography.Text>
         <CodePreview>yarn add @ant-design/pro-layout</CodePreview>
       </Card>
+      <Button onClick={() => setVisible(true)}>打开model</Button>
+      <Model visible={visible} handleCancel={() => setVisible(false)} large>
+        <Detail large />
+      </Model>
     </PageContainer>
   );
 };
